@@ -2,6 +2,7 @@
   "name": "claude-mcp",
   "version": "1.0.0",
   "description": "AI middleware service connecting HighLevel CRM and Anthropic API",
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
@@ -12,12 +13,14 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.77.0",
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-rate-limit": "^8.2.1",
     "express-validator": "^7.2.1",
     "helmet": "^8.0.0",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

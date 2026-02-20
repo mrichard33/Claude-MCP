@@ -1,4 +1,4 @@
-const BaseConnector = require('./base-connector');
+import BaseConnector from './base-connector.js';
 
 class LeadPerfectionConnector extends BaseConnector {
   constructor() {
@@ -17,4 +17,4 @@ class LeadPerfectionConnector extends BaseConnector {
   //   async addNote(contactId, note) { ... }
 }
 
-module.exports = new LeadPerfectionConnector();
+export default new LeadPerfectionConnector();

@@ -1,8 +1,8 @@
-const anthropic = require('./anthropic');
-const highlevel = require('../integrations/highlevel');
-const logger = require('../config/logger');
+import { generateResponse } from './anthropic.js';
+import highlevel from '../integrations/highlevel.js';
+import logger from '../config/logger.js';
 
-async function processWebhook(eventType, payload) {
+export async function processWebhook(eventType, payload) {
   logger.info(`Processing webhook event: ${eventType}`);
 
   const contactId = payload.contactId || payload.id;
@@ -15,7 +15,7 @@ async function processWebhook(eventType, payload) {
       payload.body || payload.message || payload.messageBody || `New event: ${eventType}`;
     const leadName = payload.name || payload.contactName || payload.firstName || '';
 
-    const aiResponse = await anthropic.generateResponse({
+    const aiResponse = await generateResponse({
       leadName,
       message,
       conversationHistory: [],
@@ -43,10 +43,10 @@ async function processWebhook(eventType, payload) {
   return { status: 'acknowledged', eventType };
 }
 
-async function processDirectRequest({ leadName, message, conversationHistory, customFields }) {
+export async function processDirectRequest({ leadName, message, conversationHistory, customFields }) {
   logger.info('Processing direct AI request');
 
-  const aiResponse = await anthropic.generateResponse({
+  const aiResponse = await generateResponse({
     leadName,
     message,
     conversationHistory,
@@ -55,5 +55,3 @@ async function processDirectRequest({ leadName, message, conversationHistory, cu
 
   return { status: 'success', aiResponse };
 }
-
-module.exports = { processWebhook, processDirectRequest };

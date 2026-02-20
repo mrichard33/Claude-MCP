@@ -1,6 +1,6 @@
-const BaseConnector = require('./base-connector');
-const config = require('../config');
-const logger = require('../config/logger');
+import BaseConnector from './base-connector.js';
+import config from '../config/index.js';
+import logger from '../config/logger.js';
 
 class HighLevelConnector extends BaseConnector {
   constructor() {
@@ -62,4 +62,4 @@ class HighLevelConnector extends BaseConnector {
   }
 }
 
-module.exports = new HighLevelConnector();
+export default new HighLevelConnector();

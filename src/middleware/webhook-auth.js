@@ -1,6 +1,6 @@
-const crypto = require('crypto');
-const config = require('../config');
-const logger = require('../config/logger');
+import crypto from 'node:crypto';
+import config from '../config/index.js';
+import logger from '../config/logger.js';
 
 function verifyWebhookSignature(req, res, next) {
   if (!config.ghl.webhookSecret) {
@@ -37,4 +37,4 @@ function verifyWebhookSignature(req, res, next) {
   next();
 }
 
-module.exports = verifyWebhookSignature;
+export default verifyWebhookSignature;

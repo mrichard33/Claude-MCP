@@ -1,6 +1,6 @@
-const Anthropic = require('@anthropic-ai/sdk');
-const config = require('../config');
-const logger = require('../config/logger');
+import Anthropic from '@anthropic-ai/sdk';
+import config from '../config/index.js';
+import logger from '../config/logger.js';
 
 const client = new Anthropic({ apiKey: config.anthropic.apiKey });
 
@@ -16,7 +16,7 @@ Always respond in structured JSON with the following fields:
 
 Keep responses professional, concise, and actionable.`;
 
-async function generateResponse({ leadName, message, conversationHistory = [], customFields = {} }) {
+export async function generateResponse({ leadName, message, conversationHistory = [], customFields = {} }) {
   const messages = [];
 
   for (const entry of conversationHistory) {
@@ -68,5 +68,3 @@ async function generateResponse({ leadName, message, conversationHistory = [], c
     }
   }
 }
-
-module.exports = { generateResponse };
