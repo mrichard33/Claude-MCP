@@ -12,6 +12,18 @@ app.use(helmet());
 app.use(express.json());
 app.use(rateLimiter);
 
+app.get('/', (req, res) => {
+  res.json({
+    service: 'HighLevel-Anthropic Middleware',
+    status: 'running',
+    endpoints: {
+      health: 'GET /health',
+      webhook: 'POST /webhook/highlevel',
+      ai: 'POST /ai/respond',
+    },
+  });
+});
+
 app.use('/health', healthRoutes);
 app.use('/webhook', webhookRoutes);
 app.use('/ai', aiRoutes);

@@ -4,11 +4,18 @@ if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
 
-const required = ['GHL_API_KEY', 'GHL_LOCATION_ID', 'ANTHROPIC_API_KEY'];
+const required = ['ANTHROPIC_API_KEY'];
+const optional = ['GHL_API_KEY', 'GHL_LOCATION_ID'];
 
 for (const key of required) {
   if (!process.env[key]) {
     throw new Error(`Missing required environment variable: ${key}`);
+  }
+}
+
+for (const key of optional) {
+  if (!process.env[key]) {
+    console.warn(`Warning: environment variable ${key} is not set — GHL integration will not work`);
   }
 }
 
