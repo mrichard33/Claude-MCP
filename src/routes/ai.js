@@ -1,7 +1,7 @@
-const { Router } = require('express');
-const { body, validationResult } = require('express-validator');
-const orchestrator = require('../services/orchestrator');
-const logger = require('../config/logger');
+import { Router } from 'express';
+import { body, validationResult } from 'express-validator';
+import { processDirectRequest } from '../services/orchestrator.js';
+import logger from '../config/logger.js';
 
 const router = Router();
 
@@ -21,7 +21,7 @@ router.post(
 
     try {
       const { message, leadName, conversationHistory, customFields } = req.body;
-      const result = await orchestrator.processDirectRequest({
+      const result = await processDirectRequest({
         leadName,
         message,
         conversationHistory,
@@ -35,4 +35,4 @@ router.post(
   }
 );
 
-module.exports = router;
+export default router;

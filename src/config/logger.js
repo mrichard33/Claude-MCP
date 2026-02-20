@@ -1,5 +1,5 @@
-const winston = require('winston');
-const config = require('./index');
+import winston from 'winston';
+import config from './index.js';
 
 const SECRET_PATTERNS = [
   /sk-ant-[a-zA-Z0-9_-]+/g,
@@ -32,4 +32,4 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-module.exports = logger;
+export default logger;

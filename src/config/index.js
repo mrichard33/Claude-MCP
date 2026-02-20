@@ -1,21 +1,14 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
 
-const required = ['ANTHROPIC_API_KEY'];
-const optional = ['GHL_API_KEY', 'GHL_LOCATION_ID'];
-
-for (const key of required) {
-  if (!process.env[key]) {
-    throw new Error(`Missing required environment variable: ${key}`);
-  }
-}
+const optional = ['GHL_API_KEY', 'GHL_LOCATION_ID', 'ANTHROPIC_API_KEY'];
 
 for (const key of optional) {
   if (!process.env[key]) {
-    console.warn(`Warning: environment variable ${key} is not set — GHL integration will not work`);
+    console.warn(`Warning: environment variable ${key} is not set`);
   }
 }
 
@@ -38,6 +31,10 @@ const config = Object.freeze({
     maxTokens: 1024,
     timeoutMs: 30000,
   },
+
+  mcp: {
+    authToken: process.env.MCP_AUTH_TOKEN || null,
+  },
 });
 
-module.exports = config;
+export default config;

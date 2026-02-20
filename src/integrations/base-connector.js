@@ -1,4 +1,4 @@
-class BaseConnector {
+export default class BaseConnector {
   constructor(name) {
     this.name = name;
   }
@@ -19,5 +19,3 @@ class BaseConnector {
     throw new Error(`${this.name}: addNote not implemented`);
   }
 }
-
-module.exports = BaseConnector;

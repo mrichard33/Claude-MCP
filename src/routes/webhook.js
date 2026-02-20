@@ -1,8 +1,8 @@
-const { Router } = require('express');
-const { body, validationResult } = require('express-validator');
-const verifyWebhookSignature = require('../middleware/webhook-auth');
-const orchestrator = require('../services/orchestrator');
-const logger = require('../config/logger');
+import { Router } from 'express';
+import { body, validationResult } from 'express-validator';
+import verifyWebhookSignature from '../middleware/webhook-auth.js';
+import { processWebhook } from '../services/orchestrator.js';
+import logger from '../config/logger.js';
 
 const router = Router();
 
@@ -21,7 +21,7 @@ router.post(
 
     try {
       const { type, payload } = req.body;
-      const result = await orchestrator.processWebhook(type, payload);
+      const result = await processWebhook(type, payload);
       res.json(result);
     } catch (err) {
       logger.error(`Webhook processing error: ${err.message}`);
@@ -30,4 +30,4 @@ router.post(
   }
 );
 
-module.exports = router;
+export default router;

@@ -1,12 +1,16 @@
-const express = require('express');
-const helmet = require('helmet');
-const rateLimiter = require('./middleware/rate-limiter');
-const errorHandler = require('./middleware/error-handler');
-const healthRoutes = require('./routes/health');
-const webhookRoutes = require('./routes/webhook');
-const aiRoutes = require('./routes/ai');
+import express from 'express';
+import helmet from 'helmet';
+import rateLimiter from './middleware/rate-limiter.js';
+import errorHandler from './middleware/error-handler.js';
+import healthRoutes from './routes/health.js';
+import webhookRoutes from './routes/webhook.js';
+import aiRoutes from './routes/ai.js';
+import mcpHandler from './mcp/handler.js';
 
 const app = express();
+
+// MCP endpoint — mounted before helmet/rate limiter so they don't interfere
+app.use('/mcp', express.json(), mcpHandler);
 
 app.use(helmet());
 app.use(express.json());
@@ -20,6 +24,7 @@ app.get('/', (req, res) => {
       health: 'GET /health',
       webhook: 'POST /webhook/highlevel',
       ai: 'POST /ai/respond',
+      mcp: 'POST /mcp (MCP Streamable HTTP)',
     },
   });
 });
@@ -30,4 +35,4 @@ app.use('/ai', aiRoutes);
 
 app.use(errorHandler);
 
-module.exports = app;
+export default app;
