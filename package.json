@@ -1,28 +1,29 @@
 {
-  "name": "claude-mcp",
+  "name": "dashboard-mcp",
   "version": "1.0.0",
-  "description": "AI middleware service connecting HighLevel CRM and Anthropic API",
+  "description": "MCP server exposing mrichard33/reece-dashboard as tools for Claude.ai",
   "type": "module",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.77.0",
-    "@modelcontextprotocol/sdk": "^1.26.0",
-    "dotenv": "^16.4.7",
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "@octokit/rest": "^21.0.2",
     "express": "^4.21.2",
-    "express-rate-limit": "^8.2.1",
-    "express-validator": "^7.2.1",
-    "helmet": "^8.0.0",
-    "winston": "^3.17.0",
-    "zod": "^4.3.6"
+    "express-rate-limit": "^7.4.1",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.10",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
   }
 }
