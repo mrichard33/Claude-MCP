@@ -1,13 +1,23 @@
-FROM node:18-alpine
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json package-lock.json* ./
+RUN npm install
 
-RUN npm ci --only=production
+COPY tsconfig.json ./
+COPY src ./src
+RUN npm run build
 
-COPY . .
+FROM node:20-alpine
 
-EXPOSE ${PORT:-3000}
+WORKDIR /app
 
-CMD ["node", "src/index.js"]
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev
+
+COPY --from=build /app/dist ./dist
+
+EXPOSE 3000
+
+CMD ["node", "dist/index.js"]
